@@ -28,12 +28,12 @@ def send_to_telegram():
 
     with open("screenshot.png", "rb") as photo:
         response = requests.post(
-            f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+            f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
             data={
                 "chat_id": CHAT_ID,
-                "text": "Hola, probando"
+                "caption": "Hola, probando",
+                "photo": photo
             },
-            files={"photo": photo},
             timeout=60
     )
 
