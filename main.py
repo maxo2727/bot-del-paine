@@ -18,7 +18,7 @@ def take_screenshot():
         page.goto(TORRES_DEL_PAINE_URL, wait_until="networkidle", timeout=60000)
 
         page.screenshot(
-            path="screenshot.png",
+            path="screenshot.jpeg",
             full_page=False
         )
 
@@ -26,7 +26,7 @@ def take_screenshot():
 
 def send_to_telegram():
 
-    with open("screenshot.png", "rb") as photo:
+    with open("screenshot.jpeg", "rb") as photo:
         response = requests.post(
             f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
             data={
