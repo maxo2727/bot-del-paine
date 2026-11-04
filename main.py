@@ -33,7 +33,7 @@ def send_to_telegram():
                 "chat_id": CHAT_ID,
                 "caption": "Hola, probando"
             },
-            files={"photo":photo}
+            files={"photo": photo},
             timeout=60
     )
         
