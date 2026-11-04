@@ -28,6 +28,8 @@ def check_availability(page):
         '[role="gridcell"][aria-label*="1 de enero de 2027"]:visible'
     ).first
 
+    dia.wait_for(state="visible", timeout=10_000)
+
     is_available = dia.get_attribute("aria-disabled") == "false"
 
     if is_available:
@@ -46,13 +48,13 @@ def take_screenshot():
 
         page.goto(TORRES_DEL_PAINE_URL, wait_until="networkidle", timeout=60000)
         advance_calendar_to_january_2027(page)
+        availability = check_availability(page)
 
         page.screenshot(
             path="screenshot.jpeg",
             full_page=False
         )
 
-        availability = check_availability(page)
 
         browser.close()
 
