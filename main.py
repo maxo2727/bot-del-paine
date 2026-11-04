@@ -36,7 +36,8 @@ def send_to_telegram():
             files={"photo":photo}
             timeout=60
     )
-
+        
+    print(response.text)
     response.raise_for_status()
 
 if __name__ == "__main__":
