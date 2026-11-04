@@ -31,9 +31,9 @@ def send_to_telegram():
             f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
             data={
                 "chat_id": CHAT_ID,
-                "caption": "Hola, probando",
-                "photo": photo
+                "caption": "Hola, probando"
             },
+            files={"photo":photo}
             timeout=60
     )
 
