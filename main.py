@@ -23,6 +23,18 @@ def advance_calendar_to_january_2027(page):
 
     raise RuntimeError(f"No se alcanzó {target_month}; mes actual: {current_month.inner_text()}")
 
+def check_availability(page):
+    dia = page.locator(
+        '[role="gridcell"][aria-label*="1 de enero de 2027"]:visible'
+    ).first
+
+    is_available = dia.get_attribute("aria-disabled") == "false"
+
+    if is_available:
+        return "Disponible!!"
+    else:
+        return "no disponible bu"
+
 def take_screenshot():
     with sync_playwright() as p:
         browser = p.chromium.launch()
@@ -40,16 +52,21 @@ def take_screenshot():
             full_page=False
         )
 
+        availability = check_availability(page)
+
         browser.close()
 
-def send_to_telegram():
+        return availability
+
+def send_to_telegram(availability):
 
     with open("screenshot.jpeg", "rb") as photo:
+
         response = requests.post(
             f"https://api.telegram.org/bot{TOKEN}/sendPhoto",
             data={
                 "chat_id": CHAT_ID,
-                "caption": "Hola, probando"
+                "caption": availability
             },
             files={"photo": photo},
             timeout=60
@@ -59,6 +76,6 @@ def send_to_telegram():
     response.raise_for_status()
 
 if __name__ == "__main__":
-    take_screenshot()
-    send_to_telegram()
+    availability = take_screenshot()
+    send_to_telegram(availability)
     print("Foto enviada")
