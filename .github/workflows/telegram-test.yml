@@ -2,6 +2,9 @@ name: Telegram Test
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 7 * * *'
+      timezone: 'America/Santiago'
 
 jobs:
   send-paine-message:
